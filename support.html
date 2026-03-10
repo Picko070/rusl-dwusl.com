@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — RUSL-DWUSL</title>
+    <meta name="description" content="Support Center for RUSL-DWUSL mobile game by PocketClub LLC.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg-dark:#003a6e;--bg-mid:#004D90;--teal:#2080c8;--teal-light:#4da8e8;--green:#6dd400;--white:#fff;--white-90:rgba(255,255,255,.9);--white-60:rgba(255,255,255,.6);--white-20:rgba(255,255,255,.2);--white-10:rgba(255,255,255,.1)}
+        body{font-family:'DM Sans',sans-serif;background:linear-gradient(170deg,var(--bg-dark),var(--bg-mid));color:var(--white);min-height:100vh;line-height:1.7}
+        nav{position:fixed;width:100%;top:0;z-index:100;background:rgba(0,58,110,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--white-10)}
+        .nav-inner{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.9rem 2rem}
+        .nav-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:1.4rem;color:var(--white);text-decoration:none;letter-spacing:1px}
+        .nav-links{list-style:none;display:flex;gap:1.8rem}
+        .nav-links a{color:var(--white-60);text-decoration:none;font-size:.95rem;transition:color .25s}
+        .nav-links a:hover{color:var(--white)}
+        .container{max-width:1000px;margin:90px auto 50px;padding:0 2rem}
+        .hero-text{text-align:center;margin-bottom:3rem}
+        .hero-text h1{font-family:'Outfit',sans-serif;font-size:2.6rem;font-weight:800;margin-bottom:.5rem}
+        .hero-text p{color:var(--white-60);font-size:1.1rem}
+
+        /* FAQ */
+        .faq{background:var(--white-10);border:1px solid var(--white-10);border-radius:20px;padding:2rem;margin-bottom:2rem}
+        .faq h2{font-family:'Outfit',sans-serif;font-size:1.6rem;color:var(--teal-light);text-align:center;margin-bottom:1.5rem}
+        .faq-item{background:var(--white-10);border-radius:12px;margin-bottom:.8rem;overflow:hidden;border:1px solid transparent;transition:border-color .3s;cursor:pointer}
+        .faq-item:hover{border-color:var(--teal)}
+        .faq-q{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;font-weight:600;color:var(--white-90)}
+        .faq-q span:last-child{font-size:1.4rem;color:var(--green);transition:transform .3s}
+        .faq-item.open .faq-q span:last-child{transform:rotate(45deg)}
+        .faq-a{padding:0 1.5rem;max-height:0;overflow:hidden;transition:all .3s;color:var(--white-60);font-size:.95rem}
+        .faq-item.open .faq-a{padding:0 1.5rem 1.2rem;max-height:300px}
+
+        /* CONTACT GRID */
+        .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+        .card{background:var(--white-10);border:1px solid var(--white-10);border-radius:20px;padding:2rem}
+        .card h2{font-family:'Outfit',sans-serif;font-size:1.3rem;color:var(--teal-light);margin-bottom:1.2rem}
+        label{display:block;color:var(--green);font-weight:600;margin-bottom:.3rem;font-size:.9rem}
+        input,textarea{width:100%;padding:.7rem;background:var(--white-10);border:1px solid var(--white-20);border-radius:10px;color:var(--white);font-size:.95rem;font-family:'DM Sans',sans-serif;margin-bottom:1rem;transition:border-color .3s}
+        input:focus,textarea:focus{outline:none;border-color:var(--teal)}
+        textarea{resize:vertical;min-height:100px}
+        .send-btn{width:100%;padding:.8rem;background:var(--green);color:#1a3a00;font-weight:700;border:none;border-radius:50px;font-size:1rem;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .3s}
+        .send-btn:hover{opacity:.9;transform:translateY(-2px)}
+        .link-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--white-10);border-radius:12px;margin-bottom:.8rem;text-decoration:none;color:var(--white);transition:all .3s}
+        .link-item:hover{background:var(--white-20);transform:translateX(4px)}
+        .link-icon{font-size:1.8rem}
+        .link-item h3{font-size:.95rem;color:var(--teal-light);margin-bottom:.15rem}
+        .link-item p{font-size:.85rem;color:var(--white-60)}
+        a{color:var(--teal-light)}
+
+        footer{text-align:center;padding:2rem;color:var(--white-60);font-size:.8rem;border-top:1px solid var(--white-10);margin-top:3rem}
+        @media(max-width:768px){.contact-grid{grid-template-columns:1fr}.hero-text h1{font-size:2rem}.nav-links{gap:1rem;font-size:.85rem}}
+    </style>
+</head>
+<body>
+    <nav><div class="nav-inner"><a href="index.html" class="nav-logo">RUSL-DWUSL</a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li><li><a href="support.html">Support</a></li></ul></div></nav>
+
+    <div class="container">
+        <div class="hero-text">
+            <h1>Support Center</h1>
+            <p>We're here to help! Find answers or contact us directly.</p>
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>How do I play RUSL-DWUSL?</span><span>+</span></div>
+                <div class="faq-a">Create a room, set win/lose conditions (like "Winner chooses movie, loser makes popcorn"), share the 4-digit code with a friend, and play Rock-Paper-Scissors. The app determines the winner and saves the result!</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>Is the game free?</span><span>+</span></div>
+                <div class="faq-a">Yes! RUSL-DWUSL is free to play with ads. You can optionally purchase ad removal or premium features.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>Can children play this game?</span><span>+</span></div>
+                <div class="faq-a">Yes! RUSL-DWUSL is suitable for ages 7+. We don't collect personal information, all data is stored locally. Children under 13 should have parental permission.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>How is my data protected?</span><span>+</span></div>
+                <div class="faq-a">Game data is stored locally on your device. We use Firebase for multiplayer with minimal data transfer. You can delete all local data anytime through app settings.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>What languages are supported?</span><span>+</span></div>
+                <div class="faq-a">English, Deutsch, Espa&ntilde;ol, Fran&ccedil;ais, Italiano, Portugu&ecirc;s, and &#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;. More languages coming soon!</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>Can I play without internet?</span><span>+</span></div>
+                <div class="faq-a">Playing with friends requires an internet connection for real-time multiplayer. However, you can view your game history offline.</div>
+            </div>
+            <div class="faq-item" onclick="this.classList.toggle('open')">
+                <div class="faq-q"><span>How do I report a bug?</span><span>+</span></div>
+                <div class="faq-a">Email us at support@rusl-dwusl.com with details about the issue, your device type, and steps to reproduce. Screenshots are very helpful!</div>
+            </div>
+        </div>
+
+        <div class="contact-grid">
+            <div class="card">
+                <h2>Contact Us</h2>
+                <form action="mailto:support@rusl-dwusl.com" method="post" enctype="text/plain">
+                    <label>Your Name</label><input type="text" name="name" required>
+                    <label>Email Address</label><input type="email" name="email" required>
+                    <label>Subject</label><input type="text" name="subject" required>
+                    <label>Message</label><textarea name="message" required></textarea>
+                    <button type="submit" class="send-btn">Send Message</button>
+                </form>
+            </div>
+            <div class="card">
+                <h2>Quick Links</h2>
+                <a href="privacy.html" class="link-item"><span class="link-icon">&#x1f512;</span><div><h3>Privacy Policy</h3><p>Learn how we protect your data</p></div></a>
+                <a href="terms.html" class="link-item"><span class="link-icon">&#x1f4dc;</span><div><h3>Terms of Service</h3><p>Read our terms and conditions</p></div></a>
+                <a href="mailto:support@rusl-dwusl.com" class="link-item"><span class="link-icon">&#x1f4e7;</span><div><h3>Email Support</h3><p>support@rusl-dwusl.com</p></div></a>
+                <a href="index.html#features" class="link-item"><span class="link-icon">&#x1f3ae;</span><div><h3>Game Features</h3><p>Explore what makes us unique</p></div></a>
+                <a href="index.html#how-it-works" class="link-item"><span class="link-icon">&#x2753;</span><div><h3>How It Works</h3><p>Learn to play in 4 steps</p></div></a>
+            </div>
+        </div>
+    </div>
+    <footer>&copy; 2025 PocketClub LLC. All rights reserved.</footer>
+</body>
+</html>
