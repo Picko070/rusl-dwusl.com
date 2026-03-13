@@ -42,6 +42,8 @@
         textarea{resize:vertical;min-height:100px}
         .send-btn{width:100%;padding:.8rem;background:var(--green);color:#1a3a00;font-weight:700;border:none;border-radius:50px;font-size:1rem;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .3s}
         .send-btn:hover{opacity:.9;transform:translateY(-2px)}
+        .email-btn{display:block;text-align:center;padding:1rem;background:var(--green);color:#1a3a00;font-weight:700;border-radius:50px;font-size:1.1rem;font-family:'Outfit',sans-serif;text-decoration:none;transition:all .3s}
+        .email-btn:hover{opacity:.9;transform:translateY(-2px);text-decoration:none}
         .link-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:var(--white-10);border-radius:12px;margin-bottom:.8rem;text-decoration:none;color:var(--white);transition:all .3s}
         .link-item:hover{background:var(--white-20);transform:translateX(4px)}
         .link-icon{font-size:1.8rem}
@@ -97,13 +99,12 @@
         <div class="contact-grid">
             <div class="card">
                 <h2>Contact Us</h2>
-                <form action="mailto:support@rusl-dwusl.com" method="post" enctype="text/plain">
-                    <label>Your Name</label><input type="text" name="name" required>
-                    <label>Email Address</label><input type="email" name="email" required>
-                    <label>Subject</label><input type="text" name="subject" required>
-                    <label>Message</label><textarea name="message" required></textarea>
-                    <button type="submit" class="send-btn">Send Message</button>
-                </form>
+                <p style="color:var(--white-60);margin-bottom:1.5rem">Have a question, found a bug, or just want to say hi? Reach out to us directly:</p>
+                <a href="mailto:support@rusl-dwusl.com" class="email-btn">&#x1f4e7; support@rusl-dwusl.com</a>
+                <div style="margin-top:1.5rem;padding:1.2rem;background:var(--white-10);border-radius:12px">
+                    <p style="color:var(--green);font-weight:600;margin-bottom:.5rem">When contacting us, please include:</p>
+                    <p style="color:var(--white-60);font-size:.9rem">&#x2022; Your device type (iPhone/Android)<br>&#x2022; Description of the issue<br>&#x2022; Screenshots if possible</p>
+                </div>
             </div>
             <div class="card">
                 <h2>Quick Links</h2>
@@ -118,3 +119,4 @@
     <footer>&copy; 2025 PocketClub LLC. All rights reserved.</footer>
 </body>
 </html>
+
