@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Play — RUSL-DWUSL</title>
+    <meta name="description" content="Learn how to play RUSL-DWUSL — the remote Rock-Paper-Scissors dispute resolution game.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --plum: #1e1520;
+            --plum-light: #2a1e2e;
+            --plum-mid: #3d2a42;
+            --mauve: #8b6078;
+            --mauve-light: #a87d95;
+            --coral: #e8a090;
+            --green: #7ae67a;
+            --text-primary: #f0e6ec;
+            --text-secondary: #b89aab;
+            --text-muted: #7d6472;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--plum);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(139, 96, 120, 0.2);
+            position: relative;
+        }
+
+        .header-logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .header-logo a {
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .header-logo .r { color: var(--green); }
+        .header-logo .d { color: var(--coral); }
+        .header-logo .dot { color: var(--mauve); font-size: 14px; }
+
+        /* Language Switcher */
+        .lang-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 16px 20px;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--mauve);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(139, 96, 120, 0.2);
+            color: var(--text-primary);
+        }
+
+        .lang-btn.active {
+            background: var(--mauve);
+            color: var(--plum);
+            border-color: var(--mauve);
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 32px 24px 60px;
+        }
+
+        .page-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 36px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--coral);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--mauve);
+            color: var(--plum);
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .section p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* Rules section */
+        .rules-section {
+            background: var(--plum-light);
+            border: 1px solid rgba(139, 96, 120, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 36px;
+        }
+
+        .rules-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 14px;
+        }
+
+        .rule-item {
+            color: var(--text-secondary);
+            font-size: 15px;
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .rule-item::before {
+            content: '•';
+            position: absolute;
+            left: 4px;
+            color: var(--mauve);
+        }
+
+        /* RPS visual */
+        .rps-visual {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin: 16px 0;
+            font-size: 15px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .rps-item {
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .rps-icon {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        /* Tips section */
+        .tips-section {
+            background: rgba(122, 230, 122, 0.06);
+            border: 1px solid rgba(122, 230, 122, 0.15);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 36px;
+        }
+
+        .tips-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--green);
+            margin-bottom: 14px;
+        }
+
+        .tip-item {
+            color: var(--text-secondary);
+            font-size: 15px;
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .tip-item::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-size: 10px;
+            top: 9px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            border-top: 1px solid rgba(139, 96, 120, 0.15);
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer a {
+            color: var(--mauve-light);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--coral);
+        }
+
+        /* Language content */
+        .lang-content { display: none; }
+        .lang-content.active { display: block; }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .page-title { font-size: 26px; }
+            .content { padding: 24px 18px 48px; }
+            .lang-switcher { gap: 4px; }
+            .lang-btn { padding: 5px 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="header-logo">
+        <a href="https://rusl-dwusl.com"><span class="r">R</span><span class="dot">•</span><span class="d">D</span>&nbsp;&nbsp;RUSL-DWUSL</a>
+    </div>
+</div>
+
+<!-- Language Switcher -->
+<div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('de')">Deutsch</button>
+    <button class="lang-btn" onclick="setLang('es')">Español</button>
+    <button class="lang-btn" onclick="setLang('fr')">Français</button>
+    <button class="lang-btn" onclick="setLang('it')">Italiano</button>
+    <button class="lang-btn" onclick="setLang('pt')">Português</button>
+    <button class="lang-btn" onclick="setLang('ru')">Русский</button>
+</div>
+
+<div class="content">
+
+<!-- ==================== ENGLISH ==================== -->
+<div class="lang-content active" id="lang-en">
+    <h1 class="page-title">How to Play</h1>
+    <p class="page-subtitle">The only way to play Rock-Paper-Scissors remotely</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Create a dispute</div>
+        <p>Player 1 (the host) opens the app, then "Create Room." Two fields appear: "Winner gets" and "Loser gets." Fill in your stakes — for example, "Winner picks the movie" and "Loser does the dishes." You can fill in one field or both.</p>
+        <p>Choose the game format: Best of 1, Best of 3, or Best of 5. Then tap "Create." A 4-digit room code will appear on screen, along with a Share button. Tap Share to send the code to your opponent via any messenger.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Join the room</div>
+        <p>Player 2 (the opponent) opens the app, then "Join Room." Enter the 4-digit code and tap Join. If you copied the code from a message, it will paste automatically.</p>
+        <p>The app will show the conditions set by the dispute creator.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Agree and start</div>
+        <p>Both players see the Agreement screen with the dispute conditions and the game format. Each player taps "Ready." If you disagree with the conditions, tap "Change." Create your own conditions and send the code to your opponent.</p>
+        <p>Once both players are ready, the game begins automatically.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Play</div>
+        <p>A countdown starts: 3… 2… 1… GO! After "GO," you have 5 seconds to choose your move: Rock, Paper, or Scissors.</p>
+        <p>You can change your choice as many times as you want during those 5 seconds — only the final selection counts. The selection panel can be dragged to any comfortable position on the screen.</p>
+        <p>If you don't make a choice within 5 seconds, the round is automatically awarded to your opponent.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Results</div>
+        <p>After each round, the result is displayed: who won, who lost, or if it was a draw. Draws don't count — the round is replayed.</p>
+        <p>The game continues until one player reaches the required number of wins (1, 3, or 5). The final result screen shows the winner and the dispute conditions.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Rules</div>
+        <div class="rule-item">Rock beats Scissors</div>
+        <div class="rule-item">Scissors beats Paper</div>
+        <div class="rule-item">Paper beats Rock</div>
+        <div class="rule-item">If both players choose the same move — it's a draw and the round is replayed</div>
+        <div class="rule-item">Each round has a 5-second time limit to make your choice</div>
+        <div class="rule-item">If a player disconnects or leaves during a game, the victory is awarded to the remaining player</div>
+        <div class="rule-item">All game results are saved in the History section</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Tips</div>
+        <div class="tip-item">You can view your past disputes in the History section</div>
+        <div class="tip-item">You can change your avatar in Settings</div>
+        <div class="tip-item">The app supports 7 languages: English, German, Spanish, French, Italian, Portuguese, and Russian</div>
+        <div class="tip-item">You can change the language in Settings</div>
+    </div>
+</div>
+
+<!-- ==================== DEUTSCH ==================== -->
+<div class="lang-content" id="lang-de">
+    <h1 class="page-title">Spielanleitung</h1>
+    <p class="page-subtitle">Die einzige Möglichkeit, Schere-Stein-Papier aus der Ferne zu spielen</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Streit erstellen</div>
+        <p>Spieler 1 (der Ersteller) öffnet die App, dann „Raum erstellen". Zwei Felder erscheinen: „Gewinner bekommt" und „Verlierer bekommt". Tragen Sie Ihre Bedingungen ein — zum Beispiel „Gewinner wählt den Film" und „Verlierer spült ab". Sie können ein oder beide Felder ausfüllen.</p>
+        <p>Wählen Sie das Spielformat: Beste aus 1, Beste aus 3 oder Beste aus 5. Tippen Sie dann auf „Erstellen". Ein 4-stelliger Raumcode erscheint auf dem Bildschirm, zusammen mit einer Teilen-Taste. Tippen Sie auf Teilen, um den Code über einen beliebigen Messenger an Ihren Gegner zu senden.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Raum beitreten</div>
+        <p>Spieler 2 (der Gegner) öffnet die App, dann „Raum beitreten". Geben Sie den 4-stelligen Code ein und tippen Sie auf Beitreten. Wenn Sie den Code aus einer Nachricht kopiert haben, wird er automatisch eingefügt.</p>
+        <p>Die App zeigt die vom Ersteller festgelegten Bedingungen an.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Zustimmen und starten</div>
+        <p>Beide Spieler sehen den Vereinbarungsbildschirm mit den Bedingungen und dem Spielformat. Jeder Spieler tippt auf „Bereit". Wenn Sie mit den Bedingungen nicht einverstanden sind, tippen Sie auf „Ändern". Erstellen Sie Ihre eigenen Bedingungen und senden Sie den Code an Ihren Gegner.</p>
+        <p>Sobald beide Spieler bereit sind, beginnt das Spiel automatisch.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Spielen</div>
+        <p>Ein Countdown startet: 3… 2… 1… LOS! Nach „LOS" haben Sie 5 Sekunden, um Ihren Zug zu wählen: Stein, Schere oder Papier.</p>
+        <p>Sie können Ihre Wahl in diesen 5 Sekunden beliebig oft ändern — nur die letzte Auswahl zählt. Das Auswahlfeld kann an jede bequeme Position auf dem Bildschirm gezogen werden.</p>
+        <p>Wenn Sie innerhalb von 5 Sekunden keine Wahl treffen, wird die Runde automatisch Ihrem Gegner zugesprochen.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Ergebnisse</div>
+        <p>Nach jeder Runde wird das Ergebnis angezeigt: wer gewonnen hat, wer verloren hat oder ob es unentschieden war. Unentschieden zählen nicht — die Runde wird wiederholt.</p>
+        <p>Das Spiel geht weiter, bis ein Spieler die erforderliche Anzahl an Siegen erreicht (1, 3 oder 5). Der Endbildschirm zeigt den Gewinner und die Streitbedingungen.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Regeln</div>
+        <div class="rule-item">Stein schlägt Schere</div>
+        <div class="rule-item">Schere schlägt Papier</div>
+        <div class="rule-item">Papier schlägt Stein</div>
+        <div class="rule-item">Wenn beide Spieler denselben Zug wählen — Unentschieden, die Runde wird wiederholt</div>
+        <div class="rule-item">Jede Runde hat ein Zeitlimit von 5 Sekunden für die Wahl</div>
+        <div class="rule-item">Wenn ein Spieler die Verbindung trennt oder das Spiel verlässt, wird der Sieg dem verbleibenden Spieler zugesprochen</div>
+        <div class="rule-item">Alle Spielergebnisse werden im Bereich Verlauf gespeichert</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Tipps</div>
+        <div class="tip-item">Vergangene Streitigkeiten können Sie im Bereich Verlauf einsehen</div>
+        <div class="tip-item">Ihren Avatar können Sie in den Einstellungen ändern</div>
+        <div class="tip-item">Die App unterstützt 7 Sprachen: Englisch, Deutsch, Spanisch, Französisch, Italienisch, Portugiesisch und Russisch</div>
+        <div class="tip-item">Die Sprache können Sie in den Einstellungen ändern</div>
+    </div>
+</div>
+
+<!-- ==================== ESPAÑOL ==================== -->
+<div class="lang-content" id="lang-es">
+    <h1 class="page-title">Cómo jugar</h1>
+    <p class="page-subtitle">La única forma de jugar Piedra-Papel-Tijeras a distancia</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Crear una disputa</div>
+        <p>El Jugador 1 (el anfitrión) abre la aplicación, luego "Crear sala". Aparecen dos campos: "El ganador obtiene" y "El perdedor obtiene". Escriba sus condiciones — por ejemplo, "El ganador elige la película" y "El perdedor lava los platos". Puede llenar uno o ambos campos.</p>
+        <p>Elija el formato del juego: Mejor de 1, Mejor de 3 o Mejor de 5. Luego toque "Crear". Aparecerá un código de sala de 4 dígitos junto con un botón Compartir. Toque Compartir para enviar el código a su oponente por cualquier mensajero.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Unirse a la sala</div>
+        <p>El Jugador 2 (el oponente) abre la aplicación, luego "Unirse a sala". Ingrese el código de 4 dígitos y toque Unirse. Si copió el código de un mensaje, se pegará automáticamente.</p>
+        <p>La aplicación mostrará las condiciones establecidas por el creador de la disputa.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Aceptar y comenzar</div>
+        <p>Ambos jugadores ven la pantalla de Acuerdo con las condiciones de la disputa y el formato del juego. Cada jugador toca "Listo". Si no está de acuerdo con las condiciones, toque "Cambiar". Cree sus propias condiciones y envíe el código a su oponente.</p>
+        <p>Una vez que ambos jugadores estén listos, el juego comienza automáticamente.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Jugar</div>
+        <p>Comienza la cuenta regresiva: 3… 2… 1… ¡YA! Después de "YA" tiene 5 segundos para elegir su jugada: Piedra, Papel o Tijeras.</p>
+        <p>Puede cambiar su elección tantas veces como quiera durante esos 5 segundos — solo cuenta la selección final. El panel de selección se puede arrastrar a cualquier posición cómoda en la pantalla.</p>
+        <p>Si no hace una elección en 5 segundos, la ronda se otorga automáticamente a su oponente.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Resultados</div>
+        <p>Después de cada ronda se muestra el resultado: quién ganó, quién perdió o si fue empate. Los empates no cuentan — la ronda se repite.</p>
+        <p>El juego continúa hasta que un jugador alcance el número requerido de victorias (1, 3 o 5). La pantalla final muestra al ganador y las condiciones de la disputa.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Reglas</div>
+        <div class="rule-item">Piedra vence a Tijeras</div>
+        <div class="rule-item">Tijeras vence a Papel</div>
+        <div class="rule-item">Papel vence a Piedra</div>
+        <div class="rule-item">Si ambos jugadores eligen lo mismo — es empate y la ronda se repite</div>
+        <div class="rule-item">Cada ronda tiene un límite de 5 segundos para hacer su elección</div>
+        <div class="rule-item">Si un jugador se desconecta o abandona durante el juego, la victoria se otorga al jugador restante</div>
+        <div class="rule-item">Todos los resultados se guardan en la sección Historial</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Consejos</div>
+        <div class="tip-item">Puede ver sus disputas pasadas en la sección Historial</div>
+        <div class="tip-item">Puede cambiar su avatar en Ajustes</div>
+        <div class="tip-item">La aplicación soporta 7 idiomas: inglés, alemán, español, francés, italiano, portugués y ruso</div>
+        <div class="tip-item">Puede cambiar el idioma en Ajustes</div>
+    </div>
+</div>
+
+<!-- ==================== FRANÇAIS ==================== -->
+<div class="lang-content" id="lang-fr">
+    <h1 class="page-title">Comment jouer</h1>
+    <p class="page-subtitle">La seule façon de jouer à Pierre-Feuille-Ciseaux à distance</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Créer un défi</div>
+        <p>Le Joueur 1 (l'hôte) ouvre l'application, puis « Créer une salle ». Deux champs apparaissent : « Le gagnant obtient » et « Le perdant obtient ». Inscrivez vos conditions — par exemple, « Le gagnant choisit le film » et « Le perdant fait la vaisselle ». Vous pouvez remplir un seul champ ou les deux.</p>
+        <p>Choisissez le format du jeu : Meilleur de 1, Meilleur de 3 ou Meilleur de 5. Appuyez ensuite sur « Créer ». Un code de salle à 4 chiffres apparaîtra à l'écran avec un bouton Partager. Appuyez sur Partager pour envoyer le code à votre adversaire via n'importe quelle messagerie.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Rejoindre la salle</div>
+        <p>Le Joueur 2 (l'adversaire) ouvre l'application, puis « Rejoindre une salle ». Entrez le code à 4 chiffres et appuyez sur Rejoindre. Si vous avez copié le code d'un message, il sera collé automatiquement.</p>
+        <p>L'application affichera les conditions établies par le créateur du défi.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Accepter et commencer</div>
+        <p>Les deux joueurs voient l'écran d'Accord avec les conditions du défi et le format du jeu. Chaque joueur appuie sur « Prêt ». Si vous n'êtes pas d'accord avec les conditions, appuyez sur « Modifier ». Créez vos propres conditions et envoyez le code à votre adversaire.</p>
+        <p>Dès que les deux joueurs sont prêts, le jeu commence automatiquement.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Jouer</div>
+        <p>Un compte à rebours commence : 3… 2… 1… C'EST PARTI ! Après « C'EST PARTI », vous avez 5 secondes pour choisir votre coup : Pierre, Feuille ou Ciseaux.</p>
+        <p>Vous pouvez changer votre choix autant de fois que vous le souhaitez pendant ces 5 secondes — seule la dernière sélection compte. Le panneau de sélection peut être déplacé à n'importe quelle position confortable sur l'écran.</p>
+        <p>Si vous ne faites pas de choix dans les 5 secondes, le round est automatiquement attribué à votre adversaire.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Résultats</div>
+        <p>Après chaque round, le résultat s'affiche : qui a gagné, qui a perdu ou s'il y a égalité. Les égalités ne comptent pas — le round est rejoué.</p>
+        <p>Le jeu continue jusqu'à ce qu'un joueur atteigne le nombre requis de victoires (1, 3 ou 5). L'écran final affiche le gagnant et les conditions du défi.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Règles</div>
+        <div class="rule-item">Pierre bat Ciseaux</div>
+        <div class="rule-item">Ciseaux bat Feuille</div>
+        <div class="rule-item">Feuille bat Pierre</div>
+        <div class="rule-item">Si les deux joueurs choisissent le même coup — égalité, le round est rejoué</div>
+        <div class="rule-item">Chaque round a une limite de 5 secondes pour faire votre choix</div>
+        <div class="rule-item">Si un joueur se déconnecte ou quitte pendant le jeu, la victoire est attribuée au joueur restant</div>
+        <div class="rule-item">Tous les résultats sont sauvegardés dans la section Historique</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Conseils</div>
+        <div class="tip-item">Vous pouvez consulter vos anciens défis dans la section Historique</div>
+        <div class="tip-item">Vous pouvez changer votre avatar dans les Paramètres</div>
+        <div class="tip-item">L'application prend en charge 7 langues : anglais, allemand, espagnol, français, italien, portugais et russe</div>
+        <div class="tip-item">Vous pouvez changer la langue dans les Paramètres</div>
+    </div>
+</div>
+
+<!-- ==================== ITALIANO ==================== -->
+<div class="lang-content" id="lang-it">
+    <h1 class="page-title">Come giocare</h1>
+    <p class="page-subtitle">L'unico modo per giocare a Sasso-Carta-Forbice a distanza</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Creare una sfida</div>
+        <p>Il Giocatore 1 (l'ospite) apre l'app, poi "Crea stanza". Appaiono due campi: "Il vincitore ottiene" e "Il perdente ottiene". Inserisci le tue condizioni — ad esempio, "Il vincitore sceglie il film" e "Il perdente lava i piatti". Puoi compilare uno o entrambi i campi.</p>
+        <p>Scegli il formato di gioco: Migliore di 1, Migliore di 3 o Migliore di 5. Poi tocca "Crea". Apparirà un codice stanza a 4 cifre sullo schermo, insieme a un pulsante Condividi. Tocca Condividi per inviare il codice al tuo avversario tramite qualsiasi messenger.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Entrare nella stanza</div>
+        <p>Il Giocatore 2 (l'avversario) apre l'app, poi "Entra nella stanza". Inserisci il codice a 4 cifre e tocca Entra. Se hai copiato il codice da un messaggio, verrà incollato automaticamente.</p>
+        <p>L'app mostrerà le condizioni stabilite dal creatore della sfida.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Accettare e iniziare</div>
+        <p>Entrambi i giocatori vedono la schermata di Accordo con le condizioni della sfida e il formato di gioco. Ogni giocatore tocca "Pronto". Se non sei d'accordo con le condizioni, tocca "Modifica". Crea le tue condizioni e invia il codice al tuo avversario.</p>
+        <p>Quando entrambi i giocatori sono pronti, il gioco inizia automaticamente.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Giocare</div>
+        <p>Inizia il conto alla rovescia: 3… 2… 1… VIA! Dopo "VIA" hai 5 secondi per scegliere la tua mossa: Sasso, Carta o Forbice.</p>
+        <p>Puoi cambiare la tua scelta quante volte vuoi durante quei 5 secondi — conta solo l'ultima selezione. Il pannello di selezione può essere trascinato in qualsiasi posizione comoda sullo schermo.</p>
+        <p>Se non fai una scelta entro 5 secondi, il round viene automaticamente assegnato al tuo avversario.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Risultati</div>
+        <p>Dopo ogni round viene mostrato il risultato: chi ha vinto, chi ha perso o se è stato un pareggio. I pareggi non contano — il round viene ripetuto.</p>
+        <p>Il gioco continua finché un giocatore non raggiunge il numero richiesto di vittorie (1, 3 o 5). La schermata finale mostra il vincitore e le condizioni della sfida.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Regole</div>
+        <div class="rule-item">Sasso batte Forbice</div>
+        <div class="rule-item">Forbice batte Carta</div>
+        <div class="rule-item">Carta batte Sasso</div>
+        <div class="rule-item">Se entrambi i giocatori scelgono la stessa mossa — pareggio, il round viene ripetuto</div>
+        <div class="rule-item">Ogni round ha un limite di 5 secondi per fare la scelta</div>
+        <div class="rule-item">Se un giocatore si disconnette o esce durante il gioco, la vittoria viene assegnata al giocatore rimasto</div>
+        <div class="rule-item">Tutti i risultati vengono salvati nella sezione Cronologia</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Suggerimenti</div>
+        <div class="tip-item">Puoi visualizzare le sfide passate nella sezione Cronologia</div>
+        <div class="tip-item">Puoi cambiare il tuo avatar nelle Impostazioni</div>
+        <div class="tip-item">L'app supporta 7 lingue: inglese, tedesco, spagnolo, francese, italiano, portoghese e russo</div>
+        <div class="tip-item">Puoi cambiare la lingua nelle Impostazioni</div>
+    </div>
+</div>
+
+<!-- ==================== PORTUGUÊS ==================== -->
+<div class="lang-content" id="lang-pt">
+    <h1 class="page-title">Como jogar</h1>
+    <p class="page-subtitle">A única forma de jogar Pedra-Papel-Tesoura à distância</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Criar uma disputa</div>
+        <p>O Jogador 1 (o anfitrião) abre o aplicativo, depois "Criar sala". Dois campos aparecem: "O vencedor obtém" e "O perdedor obtém". Preencha suas condições — por exemplo, "O vencedor escolhe o filme" e "O perdedor lava a louça". Você pode preencher um ou ambos os campos.</p>
+        <p>Escolha o formato do jogo: Melhor de 1, Melhor de 3 ou Melhor de 5. Depois toque em "Criar". Um código de sala de 4 dígitos aparecerá na tela, junto com um botão Compartilhar. Toque em Compartilhar para enviar o código ao seu oponente por qualquer mensageiro.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Entrar na sala</div>
+        <p>O Jogador 2 (o oponente) abre o aplicativo, depois "Entrar na sala". Digite o código de 4 dígitos e toque em Entrar. Se você copiou o código de uma mensagem, ele será colado automaticamente.</p>
+        <p>O aplicativo mostrará as condições estabelecidas pelo criador da disputa.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Aceitar e começar</div>
+        <p>Ambos os jogadores veem a tela de Acordo com as condições da disputa e o formato do jogo. Cada jogador toca em "Pronto". Se você não concordar com as condições, toque em "Alterar". Crie suas próprias condições e envie o código ao seu oponente.</p>
+        <p>Assim que ambos os jogadores estiverem prontos, o jogo começa automaticamente.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Jogar</div>
+        <p>Uma contagem regressiva começa: 3… 2… 1… JÁ! Após "JÁ" você tem 5 segundos para escolher sua jogada: Pedra, Papel ou Tesoura.</p>
+        <p>Você pode mudar sua escolha quantas vezes quiser durante esses 5 segundos — apenas a última seleção conta. O painel de seleção pode ser arrastado para qualquer posição confortável na tela.</p>
+        <p>Se você não fizer uma escolha em 5 segundos, a rodada é automaticamente concedida ao seu oponente.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Resultados</div>
+        <p>Após cada rodada, o resultado é exibido: quem ganhou, quem perdeu ou se foi empate. Empates não contam — a rodada é repetida.</p>
+        <p>O jogo continua até que um jogador alcance o número necessário de vitórias (1, 3 ou 5). A tela final mostra o vencedor e as condições da disputa.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Regras</div>
+        <div class="rule-item">Pedra vence Tesoura</div>
+        <div class="rule-item">Tesoura vence Papel</div>
+        <div class="rule-item">Papel vence Pedra</div>
+        <div class="rule-item">Se ambos os jogadores escolherem a mesma jogada — empate, a rodada é repetida</div>
+        <div class="rule-item">Cada rodada tem um limite de 5 segundos para fazer sua escolha</div>
+        <div class="rule-item">Se um jogador se desconectar ou sair durante o jogo, a vitória é concedida ao jogador restante</div>
+        <div class="rule-item">Todos os resultados são salvos na seção Histórico</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Dicas</div>
+        <div class="tip-item">Você pode ver suas disputas passadas na seção Histórico</div>
+        <div class="tip-item">Você pode mudar seu avatar nas Configurações</div>
+        <div class="tip-item">O aplicativo suporta 7 idiomas: inglês, alemão, espanhol, francês, italiano, português e russo</div>
+        <div class="tip-item">Você pode mudar o idioma nas Configurações</div>
+    </div>
+</div>
+
+<!-- ==================== РУССКИЙ ==================== -->
+<div class="lang-content" id="lang-ru">
+    <h1 class="page-title">Как играть</h1>
+    <p class="page-subtitle">Единственный способ сыграть в Камень-Ножницы-Бумагу дистанционно</p>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">1</span> Создайте спор</div>
+        <p>Игрок 1 (создатель) открывает приложение, затем «Создать комнату». Появляются два поля: «Победитель» и «Проигравший». Впишите условия — например, «Победитель выбирает фильм» и «Проигравший моет посуду». Можно заполнить одно поле или оба.</p>
+        <p>Выберите формат игры: до 1, до 3 или до 5 побед. Нажмите «Создать». На экране появится 4-значный код комнаты и кнопка «Поделиться». Нажмите её, чтобы отправить код оппоненту через любой мессенджер.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">2</span> Войдите в комнату</div>
+        <p>Игрок 2 (оппонент) открывает приложение, затем «Войти по коду». Введите 4-значный код и нажмите «Войти». Если вы скопировали код из сообщения, он вставится автоматически.</p>
+        <p>Приложение покажет условия, установленные создателем спора.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">3</span> Подтвердите и начните</div>
+        <p>Оба игрока видят экран соглашения с условиями спора и форматом игры. Каждый нажимает «Готов». Если вы не согласны с условиями, нажмите «Изменить». Создайте свои условия и отправьте код оппоненту.</p>
+        <p>Как только оба игрока готовы, игра начинается автоматически.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">4</span> Играйте</div>
+        <p>Начинается отсчёт: 3… 2… 1… СТАРТ! После «СТАРТ» у вас есть 5 секунд, чтобы выбрать ход: Камень, Ножницы или Бумага.</p>
+        <p>В течение этих 5 секунд можно менять свой выбор сколько угодно раз — засчитывается только последний. Панель выбора можно перетащить в любое удобное место на экране.</p>
+        <p>Если вы не сделаете выбор за 5 секунд, очко автоматически присуждается оппоненту.</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span class="step-num">5</span> Результаты</div>
+        <p>После каждого раунда показывается результат: кто победил, кто проиграл или ничья. Ничьи не считаются — раунд переигрывается.</p>
+        <p>Игра продолжается, пока один из игроков не наберёт нужное количество побед (1, 3 или 5). На финальном экране отображается победитель и условия спора.</p>
+    </div>
+
+    <div class="rules-section">
+        <div class="rules-title">Правила</div>
+        <div class="rule-item">Камень побеждает Ножницы</div>
+        <div class="rule-item">Ножницы побеждают Бумагу</div>
+        <div class="rule-item">Бумага побеждает Камень</div>
+        <div class="rule-item">Если оба игрока выбрали одинаковый ход — ничья, раунд переигрывается</div>
+        <div class="rule-item">На каждый раунд даётся 5 секунд</div>
+        <div class="rule-item">Если игрок отключится или выйдет во время игры, победа присуждается оставшемуся игроку</div>
+        <div class="rule-item">Все результаты сохраняются в разделе «История»</div>
+    </div>
+
+    <div class="tips-section">
+        <div class="tips-title">Подсказки</div>
+        <div class="tip-item">Просмотреть прошлые споры можно в разделе «История»</div>
+        <div class="tip-item">Сменить аватар можно в «Настройках»</div>
+        <div class="tip-item">Приложение поддерживает 7 языков: английский, немецкий, испанский, французский, итальянский, португальский и русский</div>
+        <div class="tip-item">Сменить язык можно в «Настройках»</div>
+    </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- Footer -->
+<div class="footer">
+    <p>© 2025 PocketClub LLC. All rights reserved.</p>
+    <p style="margin-top: 8px;">
+        <a href="https://rusl-dwusl.com">Home</a> &nbsp;·&nbsp;
+        <a href="https://rusl-dwusl.com/privacy.html">Privacy</a> &nbsp;·&nbsp;
+        <a href="https://rusl-dwusl.com/terms.html">Terms</a> &nbsp;·&nbsp;
+        <a href="https://rusl-dwusl.com/support.html">Support</a>
+    </p>
+</div>
+
+<script>
+    function setLang(lang) {
+        // Hide all language sections
+        document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.lang-btn').forEach(el => el.classList.remove('active'));
+
+        // Show selected language
+        const langEl = document.getElementById('lang-' + lang);
+        if (langEl) {
+            langEl.classList.add('active');
+        } else {
+            document.getElementById('lang-en').classList.add('active');
+        }
+
+        // Highlight active button
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.textContent.toLowerCase().includes(getLangLabel(lang).toLowerCase())) {
+                btn.classList.add('active');
+            }
+        });
+
+        // Update URL without reload
+        const url = new URL(window.location);
+        url.searchParams.set('lang', lang);
+        history.replaceState(null, '', url);
+    }
+
+    function getLangLabel(lang) {
+        const labels = {
+            'en': 'English', 'de': 'Deutsch', 'es': 'Español',
+            'fr': 'Français', 'it': 'Italiano', 'pt': 'Português', 'ru': 'Русский'
+        };
+        return labels[lang] || 'English';
+    }
+
+    // On page load, check URL parameter
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const lang = params.get('lang');
+        if (lang && document.getElementById('lang-' + lang)) {
+            setLang(lang);
+        }
+    })();
+</script>
+
+</body>
+</html>
